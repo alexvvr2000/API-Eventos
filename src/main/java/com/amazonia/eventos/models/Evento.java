@@ -9,7 +9,7 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idEvento")
     private Integer idEvento;
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "descripcion", nullable = false, unique = true)
     private String descripcion;
     public Integer getId() {
         return this.idEvento;
