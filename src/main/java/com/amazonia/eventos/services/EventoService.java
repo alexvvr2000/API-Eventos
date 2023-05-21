@@ -14,4 +14,7 @@ public class EventoService {
     public List<Evento> obtenerEventos (){
         return iEventoRepository.findAll();
     }
+    public Evento guardarEvento(Evento evento) {
+        return iEventoRepository.save(evento);
+    }
 }
