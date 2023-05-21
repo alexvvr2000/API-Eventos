@@ -1,0 +1,49 @@
+Entidades:
+	eventos
+		id evento
+		descripcion
+
+	fechas
+		id fecha
+		id evento on delete cascade
+		lugar
+		hora y dia
+		informacion por asientos con fila en formato json y cada fila incluye precio
+		cancelado (true , false)
+
+
+Funciones
+	agregar evento y regresar la id de base
+	obtener evento y arreglo de id de fechas con id de evento
+	obtener todos los id de eventos
+	eliminar evento por id de evento (elimina las fechas de golpe)
+
+	agregar fecha con id de evento y regresa el id de la nueva fecha
+	obtener asientos disponibles y precio de las filas con id de evento y id de fecha
+	obtener horario con id de evento y id de fecha
+	cambiar estatus de un evento
+	cambiar estatus de asiento
+	eliminar fecha con id de evento y de fecha
+
+Formato:
+	nuevoEvento : {
+		Descripcion
+	}
+	nuevaFecha : {
+		id evento,
+		lugar,
+		hora y dia,
+		asientos : {
+			-- Cada fila tiene el formato establecido por el lugar, ejemplo:
+			"A" : {
+				"precio" : 700,
+				"1": true,
+				"2": false,
+			}
+			"B" : {
+				"precio" : 200,
+				"1": false,
+				"2": false,
+			}
+		}
+	}
