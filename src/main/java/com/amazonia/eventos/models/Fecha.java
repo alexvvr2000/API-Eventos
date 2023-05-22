@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity(name = "Fecha")
 @Table(name = "\"Fecha\"", schema = "public")
@@ -20,6 +19,11 @@ public class Fecha implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idFecha", unique = true)
     private Integer idFecha;
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "idEvento"
+    )
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne
     @JoinColumn(
             name = "idEvento",
@@ -35,9 +39,12 @@ public class Fecha implements Serializable {
             nullable = false
     )
     private Evento evento;
-    @Column(name = "diaHora", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date diaHora;
+    @Column(name = "dia", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private LocalDate dia;
+    @Column(name = "hora", nullable = false)
+    @Temporal(TemporalType.TIME)
+    private LocalTime hora;
     @Column(name = "precioAsiento", columnDefinition = "Decimal(10,2)")
     private Double precioAsiento;
     @Column(name = "asientosDisponibles", nullable = false)
@@ -51,12 +58,6 @@ public class Fecha implements Serializable {
     }
     public void setEvento(Evento evento) {
         this.evento = evento;
-    }
-    public Date getDiaHora() {
-        return diaHora;
-    }
-    public void setDiaHora(Date diaHora) {
-        this.diaHora = diaHora;
     }
     public Double getPrecioAsiento() {
         return precioAsiento;
@@ -84,5 +85,17 @@ public class Fecha implements Serializable {
     }
     public Integer getIdFecha() {
         return idFecha;
+    }
+    public LocalDate getDia() {
+        return dia;
+    }
+    public void setDia(LocalDate dia) {
+        this.dia = dia;
+    }
+    public LocalTime getHora() {
+        return hora;
+    }
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
     }
 }
