@@ -19,9 +19,13 @@ import java.util.Optional;
 public class EventoController {
     @Autowired
     private EventoService eventoService;
-    @GetMapping("/eventos")
-    public List<Evento> eventosEnBase(){
-        return eventoService.obtenerEventos();
+    @GetMapping("/eventos/{idEvento}")
+    public Evento obtenerEvento(@PathVariable(name = "idEvento") Integer idEvento){
+        Evento eventoEnBase = eventoService.obtenerEventoPorId(idEvento);
+        if (eventoEnBase == null) throw new ResponseStatusException(
+                HttpStatus.NOT_FOUND, "ID no existe en base"
+        );
+        return eventoEnBase;
     }
     @PostMapping("/eventos")
     public Evento agregarEvento(@Validated @RequestBody Evento nuevoEvento){
