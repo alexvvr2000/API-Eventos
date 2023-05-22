@@ -19,7 +19,7 @@ import java.util.Optional;
 public class EventoController {
     @Autowired
     private EventoService eventoService;
-    @GetMapping("/eventos")
+    @GetMapping("/evento")
     public List<Evento> eventosEnBase(){
         return eventoService.obtenerEventos();
     }
@@ -38,5 +38,14 @@ public class EventoController {
         Evento eventoEnBase = eventoService.obtenerEventoPorId(idEvento);
         eventoEnBase.setDescripcion(descripcion.get("descripcion"));
         return eventoService.guardarEvento(eventoEnBase);
+    }
+    @DeleteMapping("/eventos/{idEvento}")
+    public void actualizarEvento(
+            @PathVariable(name = "idEvento") Integer idEvento
+    ){
+        if(idEvento == null) throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "Evento es nulo"
+        );
+        eventoService.eliminarEvento(idEvento);
     }
 }
