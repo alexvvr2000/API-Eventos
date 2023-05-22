@@ -39,7 +39,7 @@ public class FechaController {
             );
         }
     }
-    @PostMapping("/fecha/{idEvento}")
+    @PostMapping("/fecha")
     public Fecha agregarFechaEvento(
             @Validated @RequestBody Fecha fechaEvento
     ){
