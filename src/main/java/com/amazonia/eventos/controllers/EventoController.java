@@ -19,7 +19,7 @@ import java.util.Optional;
 public class EventoController {
     @Autowired
     private EventoService eventoService;
-    @GetMapping("/eventos/{idEvento}")
+    @GetMapping("/evento/{idEvento}")
     public Evento obtenerEvento(@PathVariable(name = "idEvento") Integer idEvento){
         Evento eventoEnBase = eventoService.obtenerEventoPorId(idEvento);
         if (eventoEnBase == null) throw new ResponseStatusException(
@@ -27,11 +27,11 @@ public class EventoController {
         );
         return eventoEnBase;
     }
-    @PostMapping("/eventos")
+    @PostMapping("/evento")
     public Evento agregarEvento(@Validated @RequestBody Evento nuevoEvento){
         return eventoService.guardarEvento(nuevoEvento);
     }
-    @PutMapping("/eventos/{idEvento}")
+    @PutMapping("/evento/{idEvento}")
     public Evento actualizarEvento(
             @PathVariable(name = "idEvento") Integer idEvento,
             @RequestBody Map<String, String> descripcion
@@ -43,7 +43,7 @@ public class EventoController {
         eventoEnBase.setDescripcion(descripcion.get("descripcion"));
         return eventoService.guardarEvento(eventoEnBase);
     }
-    @DeleteMapping("/eventos/{idEvento}")
+    @DeleteMapping("/evento/{idEvento}")
     public void actualizarEvento(
             @PathVariable(name = "idEvento") Integer idEvento
     ){
