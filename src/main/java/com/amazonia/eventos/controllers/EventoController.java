@@ -29,13 +29,13 @@ public class EventoController {
     }
     @PutMapping("/eventos/{idEvento}")
     public Evento actualizarEvento(
-            @PathVariable(name = "idEvento") String idEvento,
-            @RequestBody Map<String, String> body
+            @PathVariable(name = "idEvento") Integer idEvento,
+            @RequestBody Map<String, String> descripcion
     ){
         if (!body.containsKey("descripcion")) throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST, "Campo descripcion vacio"
         );
-        Evento eventoEnBase = eventoService.obtenerEventoPorId(Integer.parseInt(idEvento));
+        Evento eventoEnBase = eventoService.obtenerEventoPorId(idEvento);
         eventoEnBase.setDescripcion(body.get("descripcion"));
         return eventoService.guardarEvento(eventoEnBase);
     }
