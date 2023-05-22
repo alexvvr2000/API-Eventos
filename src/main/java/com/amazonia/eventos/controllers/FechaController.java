@@ -27,10 +27,12 @@ public class FechaController {
             @PathVariable(name = "idFecha") Integer idFecha,
             @RequestBody Map<String, Object> datosNuevos
     ) {
-        Fecha fechaNueva = fechaService.actualizarFecha(idFecha, datosNuevos);
-        if(fechaNueva == null) throw new ResponseStatusException(
-                HttpStatus.NOT_ACCEPTABLE, "Campos no son parte de fecha"
-        );
-        return fechaNueva;
+        try {
+            return fechaService.actualizarFecha(idFecha, datosNuevos);
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                HttpStatus.NOT_MODIFIED, "Query invalido"
+            );
+        }
     }
 }
