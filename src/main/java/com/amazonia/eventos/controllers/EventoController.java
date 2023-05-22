@@ -32,11 +32,11 @@ public class EventoController {
             @PathVariable(name = "idEvento") Integer idEvento,
             @RequestBody Map<String, String> descripcion
     ){
-        if (!body.containsKey("descripcion")) throw new ResponseStatusException(
+        if (!descripcion.containsKey("descripcion")) throw new ResponseStatusException(
                 HttpStatus.BAD_REQUEST, "Campo descripcion vacio"
         );
         Evento eventoEnBase = eventoService.obtenerEventoPorId(idEvento);
-        eventoEnBase.setDescripcion(body.get("descripcion"));
+        eventoEnBase.setDescripcion(descripcion.get("descripcion"));
         return eventoService.guardarEvento(eventoEnBase);
     }
 }
