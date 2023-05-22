@@ -19,7 +19,7 @@ import java.util.Optional;
 public class EventoController {
     @Autowired
     private EventoService eventoService;
-    @GetMapping("/evento")
+    @GetMapping("/eventos")
     public List<Evento> eventosEnBase(){
         return eventoService.obtenerEventos();
     }
