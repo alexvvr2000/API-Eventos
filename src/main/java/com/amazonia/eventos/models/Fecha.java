@@ -39,11 +39,9 @@ public class Fecha implements Serializable {
             nullable = false
     )
     private Evento evento;
-    @Column(name = "dia", nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Column(name = "dia", columnDefinition = "DATE",nullable = false)
     private LocalDate dia;
-    @Column(name = "hora", nullable = false)
-    @Temporal(TemporalType.TIME)
+    @Column(name = "hora", columnDefinition = "TIME",nullable = false)
     private LocalTime hora;
     @Column(name = "precioAsiento", columnDefinition = "Decimal(10,2)")
     private Double precioAsiento;
