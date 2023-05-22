@@ -3,8 +3,11 @@ package com.amazonia.eventos.controllers;
 import com.amazonia.eventos.models.Evento;
 import com.amazonia.eventos.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.swing.text.html.Option;
 import java.util.List;
@@ -23,5 +26,17 @@ public class EventoController {
     @PostMapping("/eventos")
     public Evento agregarEvento(@Validated @RequestBody Evento nuevoEvento){
         return eventoService.guardarEvento(nuevoEvento);
+    }
+    @PutMapping("/eventos/{idEvento}")
+    public Evento actualizarEvento(
+            @PathVariable(name = "idEvento") String idEvento,
+            @RequestBody Map<String, String> body
+    ){
+        if (!body.containsKey("descripcion")) throw new ResponseStatusException(
+                HttpStatus.BAD_REQUEST, "Campo descripcion vacio"
+        );
+        Evento eventoEnBase = eventoService.obtenerEventoPorId(Integer.parseInt(idEvento));
+        eventoEnBase.setDescripcion(body.get("descripcion"));
+        return eventoService.guardarEvento(eventoEnBase);
     }
 }
