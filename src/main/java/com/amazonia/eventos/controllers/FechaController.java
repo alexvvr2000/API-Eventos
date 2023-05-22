@@ -51,4 +51,11 @@ public class FechaController {
             );
         }
     }
+    @DeleteMapping("/fecha/{idFecha}")
+    public void borrarFecha(@PathVariable(name = "idFecha") Integer idFecha){
+        boolean borradoCorrectamente = fechaService.borrarFechaEvento(idFecha);
+        if(!borradoCorrectamente) throw new ResponseStatusException(
+            HttpStatus.NOT_FOUND, "Id no existe"
+        );
+    }
 }

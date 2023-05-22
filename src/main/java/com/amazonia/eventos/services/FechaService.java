@@ -39,4 +39,10 @@ public class FechaService {
         }
         return iFechaRepository.save(fechaEnBase);
     }
+    public boolean borrarFechaEvento(Integer idFecha) {
+        boolean existeFecha = iFechaRepository.existsById(idFecha);
+        if(!existeFecha) return false;
+        iFechaRepository.deleteById(idFecha);
+        return true;
+    }
 }
